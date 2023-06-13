@@ -25,6 +25,5 @@ class Timer extends Reakt.Component {
     return <div>Seconds: {this.state.seconds}</div>
   }
 }
-
 export default Timer;
  
