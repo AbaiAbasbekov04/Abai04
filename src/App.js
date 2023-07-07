@@ -1,47 +1,43 @@
-import React from 'react';
-import {useForm} from 'react-hook-form'
+import React from "react";
 
-const Registration = () => {
-    const {register, handleSubmit, formState : {errors}} = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+const FastFood = ({users}) => {
+    return (
+        <div>
+            <h1>Список еды</h1>
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>
+                        <Food title={user.title} wt={user.wt} price={user.price}/>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
 
-    return(
-        <form className="registration-form" onSubmit={handleSubmit(onSubmit)}>    
-            <div className="forms">
-                <label>Фамилия:</label>
-                <input {...register('lastName', { required: true })} />
-                {errors.lastName && <span>Обязательное поле</span>}
-            </div>
-            <div className='forms'>
-                <label>Имя:</label>
-                <input {...register('firstName', {required: true})}/>
-                {errors.firstName && <span>Обязательное поле</span>}
-            </div>
-            <div className='forms'>
-                <label>Отчество</label>
-                <input {...register('middleName')}/>
-            </div>
-            <div className='forms'>
-                <label>Год рождение:</label>
-                <input {...register('birthYear', {pattern: /^[0-9]{4}$/})}/>
-                {errors.birthYear && <span>Введите в формате YYYY</span>}
-            </div>
-            <div className='forms'>
-                <label>Номер телефона:</label>
-                <input {...register('Number', {required: true})}/>
-                {errors.Number && <span>Обязательное поле</span>}
-            </div>
-            <div className='forms'>
-                <label>Email:</label>
-                <input {...register('email', {required: true, pattern: /^\S+@\S+$/i })}/>
-                {errors.email && <span>Введите действительный адрес</span>}
-            </div>
+const Food = ({title, wt, price}) => {
+    return (
+        <div className="foods">
+            <h2 className="ed">{title}</h2>
+            <p className="ed">Масса еды: {wt}</p>
+            <p className="ed">Цена: {price}</p>
+        </div>
+    )
+}
 
-            <button className='submit-button' type='submit'>Зарегистрироваться</button>
-        </form>
-    );
-};
-export default Registration;
+const App = () => {
+    const users = [
+        {id: 1, title: "Манты", wt: "400g", price: "200som"},
+        {id: 2, title: "Лагман", wt: "350g", price: "180som"},
+        {id: 3, title: "Ашлянфу", wt: "250g", price: "80som"},
+        {id: 4, title: "Пелмень", wt: "300g", price: "170som"},
+        {id: 5, title: "Шаурма", wt: "500g", price: "199som"}
+    ]
+    return (
+        <div className="food">
+            <FastFood users={users}/>
+        </div>
+    )
+}
+export default App;
